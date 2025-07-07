@@ -32,7 +32,12 @@ def main():
     st.sidebar.title("Select an option:")
     option = st.sidebar.radio("", ["Retrieve Clinical Guidelines", "Calculate Fluid Requirement", "Take a Quiz"])
 
-    st.markdown("<h1 style='text-align: center; white-space: nowrap;'>KK Women's and Children's Hospital</h1>", unsafe_allow_html=True)
+    st.markdown("""
+        <div style='text-align: center;'>
+            <img src='frontend/KKH Logo.jpg' alt='KKH Logo' style='width: 150px;'>
+            <h1 style='white-space: nowrap;'>KK Women's and Children's Hospital</h1>
+        </div>
+    """, unsafe_allow_html=True)
     st.subheader("Your 24/7 nurse assistant for clinical guidelines, calculations, and education.")
 
     if option == "Retrieve Clinical Guidelines":
