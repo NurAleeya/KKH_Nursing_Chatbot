@@ -1,0 +1,10 @@
+langchain
+flowise
+openai
+transformers
+sentence-transformers
+fastapi==0.115.9
+uvicorn
+pydantic
+numpy<2.0
+langsmith<0.4
