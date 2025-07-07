@@ -63,7 +63,7 @@ def main():
                         "messages": [{"role": "user", "content": query}],
                         "temperature": 0.7
                     }
-                    response = requests.post("http://10.175.5.70:1234/v1/chat/completions", json=payload)
+                    response = requests.post("http://10.175.5.70:1234/v1/chat/completions", json=payload, timeout=10)
                     if response.status_code == 200:
                         result = response.json()
                         answer = result.get("choices", [{}])[0].get("message", {}).get("content", "No answer found.")
@@ -75,6 +75,10 @@ def main():
                         save_chat_history(chat_history, chat_history_path)
                     else:
                         st.error(f"Failed to retrieve answer. Status code: {response.status_code}")
+                except requests.exceptions.Timeout:
+                    st.error("The request timed out. Please try again later.")
+                except requests.exceptions.ConnectionError:
+                    st.error("Failed to connect to the server. Please check your network or server status.")
                 except Exception as e:
                     st.error(f"An error occurred: {e}")
             else:
