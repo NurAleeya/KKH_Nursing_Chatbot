@@ -27,18 +27,18 @@ def rename_chat_history(file_path, new_name):
     return None
 
 def main():
-    logo = Image.open("frontend/KKH Logo.jpg")
-    st.sidebar.image(logo, use_container_width=True)  # Updated parameter to use_container_width
-    st.sidebar.title("Select an option:")
-    option = st.sidebar.radio("", ["Retrieve Clinical Guidelines", "Calculate Fluid Requirement", "Take a Quiz"])
+    logo = Image.open("frontend/KKH_Logo.jpg")
+    st.image(logo, width=100)  # Display the logo at the top of the page with a smaller width
 
     st.markdown("""
         <div style='text-align: center;'>
-            <img src='frontend/KKH Logo.jpg' alt='KKH Logo' style='width: 150px;'>
             <h1 style='white-space: nowrap;'>KK Women's and Children's Hospital</h1>
         </div>
     """, unsafe_allow_html=True)
     st.subheader("Your 24/7 nurse assistant for clinical guidelines, calculations, and education.")
+
+    st.sidebar.title("Select an option:")
+    option = st.sidebar.radio("", ["Retrieve Clinical Guidelines", "Calculate Fluid Requirement", "Take a Quiz"])
 
     if option == "Retrieve Clinical Guidelines":
         st.header("Retrieve Clinical Guidelines")
