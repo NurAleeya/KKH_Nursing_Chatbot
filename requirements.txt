@@ -8,3 +8,7 @@ uvicorn
 pydantic
 numpy<2.0
 langsmith<0.4
+streamlit
+pillow
+requests
+faiss-cpu
