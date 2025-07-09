@@ -55,32 +55,40 @@ def main():
         chat_history_path = "c:/Users/23050830/KKH_Nursing_Chatbot_V2/data/chat_history.json"
         chat_history = load_chat_history(chat_history_path)
 
+        # Implement caching for responses
+        @st.cache_data
+        def fetch_guidelines(query):
+            try:
+                payload = {
+                    "model": "phi-2",
+                    "messages": [{"role": "user", "content": query}],
+                    "temperature": 0.7
+                }
+                response = requests.post("http://10.175.5.70:1234/v1/chat/completions", json=payload, timeout=10)
+                if response.status_code == 200:
+                    result = response.json()
+                    answer = result.get("choices", [{}])[0].get("message", {}).get("content", "No answer found.")
+                    return answer.split(".")[0]  # Extract the first sentence for simplicity
+                else:
+                    return f"Failed to retrieve answer. Status code: {response.status_code}"
+            except requests.exceptions.Timeout:
+                return "The request timed out. Please try again later."
+            except requests.exceptions.ConnectionError:
+                return "Failed to connect to the server. Please check your network or server status."
+            except Exception as e:
+                return f"An error occurred: {e}"
+
         if st.button("Submit"):
             if query.strip():
-                try:
-                    payload = {
-                        "model": "phi-2",
-                        "messages": [{"role": "user", "content": query}],
-                        "temperature": 0.7
-                    }
-                    response = requests.post("http://10.175.5.70:1234/v1/chat/completions", json=payload, timeout=10)
-                    if response.status_code == 200:
-                        result = response.json()
-                        answer = result.get("choices", [{}])[0].get("message", {}).get("content", "No answer found.")
-                        simplified_answer = answer.split(".")[0]  # Extract the first sentence for simplicity
-                        st.success(simplified_answer)
+                simplified_answer = fetch_guidelines(query)
+                if "Failed" in simplified_answer or "error" in simplified_answer:
+                    st.error(simplified_answer)
+                else:
+                    st.success(simplified_answer)
 
-                        # Update chat history
-                        chat_history.append({"user": query, "assistant": simplified_answer})
-                        save_chat_history(chat_history, chat_history_path)
-                    else:
-                        st.error(f"Failed to retrieve answer. Status code: {response.status_code}")
-                except requests.exceptions.Timeout:
-                    st.error("The request timed out. Please try again later.")
-                except requests.exceptions.ConnectionError:
-                    st.error("Failed to connect to the server. Please check your network or server status.")
-                except Exception as e:
-                    st.error(f"An error occurred: {e}")
+                    # Update chat history
+                    chat_history.append({"user": query, "assistant": simplified_answer})
+                    save_chat_history(chat_history, chat_history_path)
             else:
                 st.warning("Please enter a valid query or select a predefined prompt.")
 
