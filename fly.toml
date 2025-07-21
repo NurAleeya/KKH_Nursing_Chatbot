@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Fly.io deployment configuration
 app = "kkh-nursing-chatbot"
 primary_region = "sin"
@@ -6,10 +7,27 @@ primary_region = "sin"
 
 [http_service]
   internal_port = 8501
+=======
+# fly.toml app configuration file generated for kkh-nursing-chatbot
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+
+app = 'kkh-nursing-chatbot-v2'
+primary_region = 'sin'
+
+[build]
+
+[env]
+  PORT = '8080'
+  PYTHONPATH = '/app'
+
+[http_service]
+  internal_port = 8080
+>>>>>>> main
   force_https = true
   auto_stop_machines = true
   auto_start_machines = true
   min_machines_running = 0
+<<<<<<< HEAD
   processes = ["app"]
 
 [[vm]]
@@ -19,3 +37,17 @@ primary_region = "sin"
 
 [env]
   PORT = "8501"
+=======
+
+[[http_service.checks]]
+  grace_period = '10s'
+  interval = '30s'
+  method = 'GET'
+  timeout = '5s'
+  path = '/health'
+
+[vm]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
+>>>>>>> main

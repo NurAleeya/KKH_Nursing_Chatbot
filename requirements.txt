@@ -1,2 +1,12 @@
+<<<<<<< HEAD
 requests
 # Add other dependencies here as needed
+=======
+fastapi==0.115.9
+uvicorn[standard]==0.30.1
+pydantic==2.8.2
+requests==2.32.3
+python-multipart==0.0.9
+sentence-transformers==3.0.1
+numpy<2.0
+>>>>>>> main

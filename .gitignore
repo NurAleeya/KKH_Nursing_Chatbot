@@ -128,6 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+<<<<<<< HEAD
 # VS Code
 .vscode/
 
@@ -142,3 +143,43 @@ models/
 # Logs
 logs/
 *.log
+=======
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Fly.io
+.fly/
+
+# Local development
+*.local
+.env.local
+
+# Vector stores and model files
+*.faiss
+*.pkl
+*.bin
+faiss_index/
+models/
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+>>>>>>> main
