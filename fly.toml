@@ -1,7 +1,7 @@
 # fly.toml app configuration file generated for kkh-nursing-chatbot
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 
-app = 'kkh-nursing-chatbot'
+app = 'kkh-nursing-chatbot-v2'
 primary_region = 'sin'
 
 [build]
